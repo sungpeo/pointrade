@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="PbasketMapper">
+<mapper namespace="PtradeMapper">
 
     <resultMap type="com.kook.pointrade.domain.PbasketDTO" id="pbasketDTO">
         <id column="pbasket_key" property="pbasketKey"/>
