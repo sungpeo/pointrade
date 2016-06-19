@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kook.pointrade.mapper.DemoMapper">
+
+   <resultMap type="com.kook.pointrade.domain.TestDTO" id="testDTO">
+      <id column="test_key" property="testKey"/>
+      <result column="test_value" property="testValue"/>
+   </resultMap>
+   
+   <insert id="insertTest" parameterType="testDTO">
+      insert into test (test_key, test_value) 
+      values (#{testKey}, {testValue})
+   </insert>
+   
+   <select id="selectTestById" parameterType="int" resultMap="testDTO">
+      select test_key, test_value
+      from sc.test 
+      where test_key = #{testKey}
+   </select>
+   
+</mapper>
