@@ -45,6 +45,10 @@ public class UserController {
 	public Map signup(@RequestParam("name")String name,
 					  @RequestParam("birth")String birth,
 					  @RequestParam("hp")String hp) {
-		return userService.signup(name, birth, hp);
+		//user insert
+		Map ret = userService.signup(name, birth, hp);
+		//basket insert
+
+		return ret;
 	}
 }

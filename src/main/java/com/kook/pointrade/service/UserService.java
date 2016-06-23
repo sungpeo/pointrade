@@ -31,6 +31,10 @@ public class UserService {
 			rMap.put("r", "noUser");
 		}else{
 			rMap.put("login",true);
+			rMap.put("userKey",user.getUserkey());
+			rMap.put("name",user.getName());
+			rMap.put("birth",user.getBirth());
+			rMap.put("hp",user.getHp());
 		}
 		return rMap;
 		

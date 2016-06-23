@@ -2,29 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="PtradeMapper">
 
-    <resultMap type="com.kook.pointrade.domain.PbasketDTO" id="pbasketDTO">
-        <id column="pbasket_key" property="pbasketKey"/>
-        <result column="user_key" property="userKey"/>
-        <result column="card_number" property="cardNumber"/>
-        <result column="balance" property="balance"/>
-        <result column="point_key" property="pointKey"/>
+    <resultMap type="com.kook.pointrade.domain.PtradeDTO" id="ptradeDTO">
+        <id column="user_key" property="userKey"/>
+        <result column="from_point_key" property="fromPointKey"/>
+        <result column="to_point_key" property="toPointKey"/>
+        <result column="trade_code" property="tradeCode"/>
+        <result column="rate" property="rate"/>
+        <result column="amount" property="amount"/>
+        <result column="stat_code" property="statCode"/>
     </resultMap>
 
-    <insert id="insertBasket" parameterType="pbasketDTO">
-        INSERT INTO PBASKET (PBASKET_KEY, USER_KEY, CARD_NUMBER, BALANCE, POINT_KEY)
-        VALUES (DEFAULT, #{userKey}, #{cardNumber}, #{balance}, #{pointKey})
+    <insert id="insertTrade" parameterType="ptradeDTO">
+        INSERT INTO PTRADE (USER_KEY, FROM_POINT_KEY, TO_POINT_KEY, TRADE_CODE, RATE, AMOUNT, STAT_CODE)
+        VALUES (#{userKey}, #{fromPointKey}, #{toPointKey}, #{tradeCode}, #{rate}, #{amount}, #{statCode})
     </insert>
 
-    <select id="selectBasketByUser" parameterType="int" resultMap="pbasketDTO">
-        SELECT  B.PBASKET_KEY,
-                B.USER_KEY,
-                B.CARD_NUMBER,
-                B.BALANCE,
-                B.POINT_KEY,
-                P.NAME POINT_NAME
-        FROM PBASKET B, PPOINT P
-        WHERE B.POINT_KEY = P.POINT_KEY
-        AND USER_KEY = #{userKey}
+    <select id="selectTradeByUserAndPoint" parameterType="ptradeDTO" resultMap="pbasketDTO">
+        SELECT  T.USER_KEY,
+                T.FROM_POINT_KEY,
+                (SELECT NAME FROM PPOINT WHERE POINT_KEY = T.FROM_POINT_KEY) AS FROM_POINT_NAME,
+                T.TO_POINT_KEY,
+                (SELECT NAME FROM PPOINT WHERE POINT_KEY = T.TO_POINT_KEY) AS TO_POINT_NAME,
+                T.TRADE_CODE,
+                T.RATE,
+                T.AMOUNT
+        FROM PTRADE T
+        WHERE T.USER_KEY = #{userKey}
+        AND T.FROM_POINT_KEY = #{fromPointKey}
+        AND T.TO_POINT_KEY = #{toPointKey}
+        AND T.TRADE_CODE = '01'
     </select>
 
 </mapper>

@@ -8,6 +8,11 @@
         <result column="card_number" property="cardNumber"/>
         <result column="balance" property="balance"/>
         <result column="point_key" property="pointKey"/>
+
+        <result column="point_name" property="pointName"/>
+        <result column="criteria" property="criteria"/>
+        <result column="current_rate" property="currentRate"/>
+
     </resultMap>
 
     <insert id="insertBasket" parameterType="pbasketDTO">
@@ -15,13 +20,17 @@
         VALUES (DEFAULT, #{userKey}, #{cardNumber}, #{balance}, #{pointKey})
     </insert>
 
-    <select id="selectBasketByUser" parameterType="int" resultMap="pbasketDTO">
+    <select id="selectBasketByUserWithCriteria" parameterType="pbasketDTO" resultMap="pbasketDTO">
         SELECT  B.PBASKET_KEY,
                 B.USER_KEY,
                 B.CARD_NUMBER,
                 B.BALANCE,
                 B.POINT_KEY,
-                P.NAME POINT_NAME
+                P.NAME POINT_NAME,
+                (SELECT CURRENT_RATE
+                    FROM CURRENT_RATE
+                    WHERE FROM_POINT_KEY = #{criteria}
+                    AND TO_POINT_KEY = B.POINT_KEY) AS CURRENT_RATE
         FROM PBASKET B, PPOINT P
         WHERE B.POINT_KEY = P.POINT_KEY
         AND USER_KEY = #{userKey}

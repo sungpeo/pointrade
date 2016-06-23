@@ -11,6 +11,12 @@ public class PbasketDTO {
     private long balance;
     private long pointKey;
 
+    //from ppoint
+    private String pointName;
+
+    private long criteria;
+    private float currentRate;
+
     public long getPbasketKey() {
         return pbasketKey;
     }
@@ -49,5 +55,29 @@ public class PbasketDTO {
 
     public void setPointKey(long pointKey) {
         this.pointKey = pointKey;
+    }
+
+    public String getPointName() {
+        return pointName;
+    }
+
+    public void setPointName(String pointName) {
+        this.pointName = pointName;
+    }
+
+    public long getCriteria() {
+        return criteria;
+    }
+
+    public void setCriteria(long criteria) {
+        this.criteria = criteria;
+    }
+
+    public float getCurrentRate() {
+        return currentRate;
+    }
+
+    public void setCurrentRate(float currentRate) {
+        this.currentRate = currentRate;
     }
 }

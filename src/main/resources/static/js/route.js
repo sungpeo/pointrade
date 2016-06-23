@@ -7,6 +7,11 @@ console.log('route.js');
 			this.$element().load('templates/app-info.html');
 		});
 
+		this.get('#/my-board', function(){
+			console.log('sammy my-board.html');
+			this.$element().load('templates/my-board.html');
+		});
+
 		this.get('#/trade-board', function(){
 			console.log('sammy trade-board.html');
 			this.$element().load('templates/trade-board.html');

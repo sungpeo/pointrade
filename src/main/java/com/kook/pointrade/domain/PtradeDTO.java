@@ -8,8 +8,9 @@ public class PtradeDTO {
     private long fromPointKey;
     private long toPointKey;
     private String tradeCode;
-    private String rate;
+    private float rate;
     private long amount;
+    private String statCode;
 
     public long getUserKey() {
         return userKey;
@@ -43,11 +44,11 @@ public class PtradeDTO {
         this.tradeCode = tradeCode;
     }
 
-    public String getRate() {
+    public float getRate() {
         return rate;
     }
 
-    public void setRate(String rate) {
+    public void setRate(float rate) {
         this.rate = rate;
     }
 
@@ -67,5 +68,5 @@ public class PtradeDTO {
         this.statCode = statCode;
     }
 
-    private String statCode;
+
 }
