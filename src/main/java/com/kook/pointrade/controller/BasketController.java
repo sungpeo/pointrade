@@ -22,8 +22,8 @@ public class BasketController {
 
     @RequestMapping(value="/list", method= RequestMethod.GET)
     @ResponseBody
-    public Map getUserBaskets(@RequestParam("userKey")long userKey,
-                              @RequestParam("criteria")long criteria) throws Exception {
+    public Map getUserBaskets(@RequestParam("userKey")int userKey,
+                              @RequestParam("criteria")int criteria) throws Exception {
         return basketService.selectBasketByUserWithCriteria(userKey, criteria);
     }
 

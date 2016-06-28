@@ -9,13 +9,28 @@ function myBoard(){
     $('#myName').text(global.name);
 
     //해피 포인트 기준
-    global.criteria = 1; //해피포인트
+    global.criteria = {};
+    function changeCriteria(key){
+        if(key==1){
+            global.criteria.key = 1; //해피포인트
+            global.criteria.name = '해피포인트'; //해피포인트
+        }else{
+            global.criteria.key = 2; //
+            global.criteria.name = 'CJ-ONE포인트'; //
+        }
+    }
+
+    if(global.name=='테스터'){
+        changeCriteria(2);
+    }else{
+        changeCriteria(1);
+    }
 
 
 
     //내가 가진 포인트 전부 조회하면서 기준 대비 currentRate까지
     $.get('/basket/list',
-        { "userKey":global.userKey, "criteria":global.criteria },
+        { "userKey":global.userKey, "criteria":global.criteria.key },
         function(data){
             global.basketList = data.basketList;
             makePointTable();
@@ -31,8 +46,8 @@ function myBoard(){
         var absoluteSum=0, relativeSum=0;
         for( var rowNum=0; rowNum<global.basketList.length; rowNum++ ){
             var eachPointName = global.basketList[rowNum].pointName,
-                left = 1,
-                right = global.basketList[rowNum].pointKey==global.criteria ? 1 : global.basketList[rowNum].currentRate,
+                left = global.basketList[rowNum].pointKey==global.criteria.key ? 1 : global.basketList[rowNum].currentRateMom,
+                right = global.basketList[rowNum].pointKey==global.criteria.key ? 1 : global.basketList[rowNum].currentRateSon,
                 eachPoint = global.basketList[rowNum].balance,
                 relativePoint = Math.floor(eachPoint/right);
 
@@ -48,7 +63,7 @@ function myBoard(){
 
             var p = {};
             p.pointName = eachPointName;
-            p.criteria = global.criteria;
+            p.criteria = global.criteria.key;
             p.pointKey = global.basketList[rowNum].pointKey;
             p.rate = right;
             p.point = eachPoint;

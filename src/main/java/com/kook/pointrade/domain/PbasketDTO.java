@@ -5,31 +5,32 @@ package com.kook.pointrade.domain;
  */
 public class PbasketDTO {
 
-    private long pbasketKey;
-    private long userKey;
+    private int pbasketKey;
+    private int userKey;
     private String cardNumber;
-    private long balance;
-    private long pointKey;
+    private int balance;
+    private int pointKey;
 
     //from ppoint
     private String pointName;
 
-    private long criteria;
-    private float currentRate;
+    private int criteria;
+    private int currentRateSon;
+    private int currentRateMom;
 
-    public long getPbasketKey() {
+    public int getPbasketKey() {
         return pbasketKey;
     }
 
-    public void setPbasketKey(long pbasketKey) {
+    public void setPbasketKey(int pbasketKey) {
         this.pbasketKey = pbasketKey;
     }
 
-    public long getUserKey() {
+    public int getUserKey() {
         return userKey;
     }
 
-    public void setUserKey(long userKey) {
+    public void setUserKey(int userKey) {
         this.userKey = userKey;
     }
 
@@ -41,19 +42,19 @@ public class PbasketDTO {
         this.cardNumber = cardNumber;
     }
 
-    public long getBalance() {
+    public int getBalance() {
         return balance;
     }
 
-    public void setBalance(long balance) {
+    public void setBalance(int balance) {
         this.balance = balance;
     }
 
-    public long getPointKey() {
+    public int getPointKey() {
         return pointKey;
     }
 
-    public void setPointKey(long pointKey) {
+    public void setPointKey(int pointKey) {
         this.pointKey = pointKey;
     }
 
@@ -65,19 +66,27 @@ public class PbasketDTO {
         this.pointName = pointName;
     }
 
-    public long getCriteria() {
+    public int getCriteria() {
         return criteria;
     }
 
-    public void setCriteria(long criteria) {
+    public void setCriteria(int criteria) {
         this.criteria = criteria;
     }
 
-    public float getCurrentRate() {
-        return currentRate;
+    public int getCurrentRateSon() {
+        return currentRateSon;
     }
 
-    public void setCurrentRate(float currentRate) {
-        this.currentRate = currentRate;
+    public void setCurrentRateSon(int currentRateSon) {
+        this.currentRateSon = currentRateSon;
+    }
+
+    public int getCurrentRateMom() {
+        return currentRateMom;
+    }
+
+    public void setCurrentRateMom(int currentRateMom) {
+        this.currentRateMom = currentRateMom;
     }
 }

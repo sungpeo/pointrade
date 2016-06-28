@@ -11,7 +11,8 @@
 
         <result column="point_name" property="pointName"/>
         <result column="criteria" property="criteria"/>
-        <result column="current_rate" property="currentRate"/>
+        <result column="current_rate_son" property="currentRateSon"/>
+        <result column="current_rate_mom" property="currentRateMom"/>
 
     </resultMap>
 
@@ -27,13 +28,35 @@
                 B.BALANCE,
                 B.POINT_KEY,
                 P.NAME POINT_NAME,
-                (SELECT CURRENT_RATE
-                    FROM CURRENT_RATE
-                    WHERE FROM_POINT_KEY = #{criteria}
-                    AND TO_POINT_KEY = B.POINT_KEY) AS CURRENT_RATE
-        FROM PBASKET B, PPOINT P
+                C.CURRENT_RATE_SON,
+                C.CURRENT_RATE_MOM
+        FROM PBASKET B, PPOINT P, CURRENT_RATE C
         WHERE B.POINT_KEY = P.POINT_KEY
-        AND USER_KEY = #{userKey}
+        AND B.USER_KEY = #{userKey}
+
+        AND C.FROM_POINT_KEY = #{criteria}
+        AND C.TO_POINT_KEY = B.POINT_KEY
+
     </select>
+
+
+    <select id="selectBasketByUserPoint" parameterType="pbasketDTO" resultMap="pbasketDTO">
+        SELECT  PBASKET_KEY,
+        USER_KEY,
+        CARD_NUMBER,
+        BALANCE,
+        POINT_KEY
+        FROM PBASKET
+        WHERE USER_KEY = #{userKey}
+        AND POINT_KEY = #{pointKey}
+    </select>
+
+    <update id="updatePbasketByUserPoint" parameterType="pbasketDTO">
+        UPDATE PBASKET
+        SET (BALANCE) = (#{balance})
+        WHERE USER_KEY = #{userKey}
+        AND POINT_KEY = #{pointKey}
+
+    </update>
 
 </mapper>

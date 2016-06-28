@@ -17,11 +17,29 @@ public class BasketDAO {
     @Autowired
     private SqlSession sqlSession;
 
-    public List<PbasketDTO> selectBasketByUserWithCriteria(long userKey, long criteria) {
+    public List<PbasketDTO> selectBasketByUserWithCriteria(int userKey, int criteria) {
         PbasketDTO in = new PbasketDTO();
         in.setUserKey(userKey);
         in.setCriteria(criteria);
-        return this.sqlSession.selectList("selectBasketByUserWithCriteria", userKey);
+        return this.sqlSession.selectList("selectBasketByUserWithCriteria", in);
+    }
+
+    public PbasketDTO selectBasketByUserPoint(int userKey, int pointKey){
+        PbasketDTO in = new PbasketDTO();
+        in.setUserKey(userKey);
+        in.setPointKey(pointKey);
+        return this.sqlSession.selectOne("selectBasketByUserPoint", in);
+    }
+
+
+    public int updatePbasketByUserPoint(int userKey, int pointKey, int balance){
+
+        PbasketDTO in = new PbasketDTO();
+        in.setUserKey(userKey);
+        in.setPointKey(pointKey);
+        in.setBalance(balance);
+        return this.sqlSession.update("updatePbasketByUserPoint", in);
+
     }
 
 

@@ -3,10 +3,9 @@ package com.kook.pointrade.domain;
 import java.math.BigDecimal;
 
 /**
- * Created by Sungpyo on 2016-06-19.
+ * Created by Sungpyo on 2016-06-25.
  */
-public class PtradeDTO {
-    private int userKey;
+public class TotalTradeDTO {
     private int fromPointKey;
     private int toPointKey;
     private BigDecimal rateSon;
@@ -14,17 +13,6 @@ public class PtradeDTO {
 
     private String tradeCode;
     private int amount;
-
-    private long timeMillis;
-
-
-    public int getUserKey() {
-        return userKey;
-    }
-
-    public void setUserKey(int userKey) {
-        this.userKey = userKey;
-    }
 
     public int getFromPointKey() {
         return fromPointKey;
@@ -72,13 +60,5 @@ public class PtradeDTO {
 
     public void setAmount(int amount) {
         this.amount = amount;
-    }
-
-    public long getTimeMillis() {
-        return timeMillis;
-    }
-
-    public void setTimeMillis(long timeMillis) {
-        this.timeMillis = timeMillis;
     }
 }

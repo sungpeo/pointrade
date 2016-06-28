@@ -5,16 +5,16 @@ package com.kook.pointrade.domain;
  */
 public class UserDTO {
 
-    private long userkey;
+    private int userkey;
     private String name;
     private String birth;
     private String hp;
 
-    public long getUserkey() {
+    public int getUserkey() {
         return userkey;
     }
 
-    public void setUserkey(long userkey) {
+    public void setUserkey(int userkey) {
         this.userkey = userkey;
     }
 

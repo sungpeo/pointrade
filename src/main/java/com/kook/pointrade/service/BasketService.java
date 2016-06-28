@@ -17,7 +17,7 @@ public class BasketService {
 	@Autowired
 	BasketDAO basketDAO;
 
-	public Map<String, Object> selectBasketByUserWithCriteria(long userKey, long criteria){
+	public Map<String, Object> selectBasketByUserWithCriteria(int userKey, int criteria){
 		Map<String, Object> rMap = new HashMap<String, Object>();
 
 		List<PbasketDTO> list = basketDAO.selectBasketByUserWithCriteria(userKey, criteria);
