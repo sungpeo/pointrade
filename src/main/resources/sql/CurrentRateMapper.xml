@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CurrentRateMapper">
+
+    <resultMap type="com.kook.pointrade.domain.CurrentRateDTO" id="currentRateDTO">
+        <id column="from_point_key" property="fromPointKey"/>
+        <id column="to_point_key" property="toPointKey"/>
+        <result column="trade_code" property="tradeCode"/>
+        <result column="current_rate_son" property="currentRateSon"/>
+        <result column="current_rate_son" property="currentRateMom"/>
+
+    </resultMap>
+
+    <insert id="insertCurrentRate" parameterType="currentRateDTO">
+        INSERT INTO CURRENT_RATE
+        (FROM_POINT_KEY, TO_POINT_KEY, TRADE_CODE, CURRENT_RATE_SON, CURRENT_RATE_MOM)
+        VALUES (#{fromPointKey}, #{toPointKey}, '00', #{currentRateSon}, #{currentRateMom})
+    </insert>
+
+    <update id="updateCurrentRate" parameterType="currentRateDTO">
+        UPDATE CURRENT_RATE
+        SET (TRADE_CODE, CURRENT_RATE_SON, CURRENT_RATE_MOM) = (#{tradeCode}, #{currentRateSon}, #{currentRateMom})
+        WHERE FROM_POINT_KEY = #{fromPointKey}
+        AND TO_POINT_KEY = #{toPointKey}
+    </update>
+
+    <select id="selectCurrentRateByPk" parameterType="currentRateDTO" resultMap="currentRateDTO">
+        SELECT  FROM_POINT_KEY
+                ,TO_POINT_KEY
+                ,TRADE_CODE
+                ,CURRENT_RATE_SON
+                ,CURRENT_RATE_MOM
+        FROM CURRENT_RATE
+        WHERE FROM_POINT_KEY = #{fromPointKey}
+        AND TO_POINT_KEY = #{toPointKey}
+    </select>
+
+</mapper>

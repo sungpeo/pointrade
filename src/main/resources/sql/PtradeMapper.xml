@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PtradeMapper">
+
+    <resultMap type="com.kook.pointrade.domain.PtradeDTO" id="ptradeDTO">
+        <id column="user_key" property="userKey"/>
+        <id column="from_point_key" property="fromPointKey"/>
+        <id column="to_point_key" property="toPointKey"/>
+        <id column="rate_son" property="rateSon"/>
+        <id column="rate_mom" property="rateMom"/>
+
+        <result column="trade_code" property="tradeCode"/>
+        <result column="amount" property="amount"/>
+        <result column="time_millis" property="timeMillis"/>
+    </resultMap>
+
+    <insert id="insertTrade" parameterType="ptradeDTO">
+        INSERT INTO PTRADE (USER_KEY, FROM_POINT_KEY, TO_POINT_KEY, RATE_SON, RATE_MOM, TRADE_CODE, AMOUNT, TIME_MILLIS)
+        VALUES (#{userKey}, #{fromPointKey}, #{toPointKey}, #{rateSon}, #{rateMom}, #{tradeCode}, #{amount}, #{timeMillis})
+    </insert>
+
+    <select id="selectTradeByUserAndPoint" parameterType="ptradeDTO" resultMap="ptradeDTO">
+        SELECT  T.USER_KEY,
+                T.FROM_POINT_KEY,
+                (SELECT NAME FROM PPOINT WHERE POINT_KEY = T.FROM_POINT_KEY) AS FROM_POINT_NAME,
+                T.TO_POINT_KEY,
+                (SELECT NAME FROM PPOINT WHERE POINT_KEY = T.TO_POINT_KEY) AS TO_POINT_NAME,
+                T.RATE_SON,
+                T.RATE_MOM,
+                T.TRADE_CODE,
+                T.AMOUNT,
+                T.TIME_MILLIS
+        FROM PTRADE T
+        WHERE T.USER_KEY = #{userKey}
+        AND T.FROM_POINT_KEY = #{fromPointKey}
+        AND T.TO_POINT_KEY = #{toPointKey}
+        AND T.TRADE_CODE = #{tradeCode}
+    </select>
+
+    <select id="selectTradeByPk" parameterType="ptradeDTO" resultMap="ptradeDTO">
+        SELECT  T.USER_KEY,
+                T.FROM_POINT_KEY,
+                T.TO_POINT_KEY,
+                T.TRADE_CODE,
+                T.RATE_SON,
+                T.RATE_MOM,
+                T.AMOUNT
+        FROM PTRADE T
+        WHERE T.USER_KEY = #{userKey}
+        AND T.FROM_POINT_KEY = #{fromPointKey}
+        AND T.TO_POINT_KEY = #{toPointKey}
+        AND T.RATE_SON = #{rateSon}
+        AND T.RATE_MOM = #{rateMom}
+    </select>
+
+    <update id="updatePtradeByPk" parameterType="ptradeDTO">
+        UPDATE PTRADE
+        SET (TRADE_CODE, AMOUNT, TIME_MILLIS)
+        = (#{tradeCode}, #{amount}, #{timeMillis})
+        WHERE USER_KEY = #{userKey}
+        AND FROM_POINT_KEY = #{fromPointKey}
+        AND TO_POINT_KEY = #{toPointKey}
+        AND RATE_SON = #{rateSon}
+        AND RATE_MOM = #{rateMom}
+    </update>
+
+    <select id="selectPtradesByPointRate" parameterType="ptradeDTO" resultMap="ptradeDTO">
+        SELECT  USER_KEY
+                ,FROM_POINT_KEY
+                ,TO_POINT_KEY
+                ,RATE_SON
+                ,RATE_MOM
+                ,TRADE_CODE
+                ,AMOUNT
+                ,TIME_MILLIS
+        FROM PTRADE
+        WHERE FROM_POINT_KEY = #{fromPointKey}
+        AND TO_POINT_KEY = #{toPointKey}
+        AND RATE_SON = #{rateSon}
+        AND RATE_MOM = #{rateMom}
+        AND TRADE_CODE = #{tradeCode}
+        ORDER BY TIME_MILLIS ASC
+
+    </select>
+
+    <delete id="deletePtradeByPk" parameterType="ptradeDTO">
+        DELETE FROM PTRADE
+        WHERE USER_KEY = #{userKey}
+        AND FROM_POINT_KEY = #{fromPointKey}
+        AND TO_POINT_KEY = #{toPointKey}
+        AND RATE_SON = #{rateSon}
+        AND RATE_MOM = #{rateMom}
+
+    </delete>
+
+</mapper>

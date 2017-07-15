@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kook.pointrade.mapper.UserMapper">
+
+    <resultMap type="com.kook.pointrade.domain.UserDTO" id="userDTO">
+        <id column="user_key" property="userkey"/>
+        <result column="name" property="name"/>
+        <result column="birth" property="birth"/>
+        <result column="hp" property="hp"/>
+    </resultMap>
+
+    <insert id="insertUser" parameterType="userDTO">
+        INSERT INTO PUSER (USER_KEY, NAME, BIRTH, HP)
+        VALUES (DEFAULT, #{name}, #{birth}, #{hp})
+    </insert>
+
+    <select id="selectByNameAndBirthAndHp" parameterType="userDTO" resultMap="userDTO">
+        SELECT USER_KEY, NAME, BIRTH, HP
+        FROM PUSER
+        WHERE NAME = #{name}
+        AND BIRTH = #{birth}
+        AND HP = #{hp}
+    </select>
+
+</mapper>

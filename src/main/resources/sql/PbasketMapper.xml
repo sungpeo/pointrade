@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PbasketMapper">
+
+    <resultMap type="com.kook.pointrade.domain.PbasketDTO" id="pbasketDTO">
+        <id column="pbasket_key" property="pbasketKey"/>
+        <result column="user_key" property="userKey"/>
+        <result column="card_number" property="cardNumber"/>
+        <result column="balance" property="balance"/>
+        <result column="point_key" property="pointKey"/>
+
+        <result column="point_name" property="pointName"/>
+        <result column="criteria" property="criteria"/>
+        <result column="current_rate_son" property="currentRateSon"/>
+        <result column="current_rate_mom" property="currentRateMom"/>
+
+    </resultMap>
+
+    <insert id="insertBasket" parameterType="pbasketDTO">
+        INSERT INTO PBASKET (PBASKET_KEY, USER_KEY, CARD_NUMBER, BALANCE, POINT_KEY)
+        VALUES (DEFAULT, #{userKey}, #{cardNumber}, #{balance}, #{pointKey})
+    </insert>
+
+    <select id="selectBasketByUserWithCriteria" parameterType="pbasketDTO" resultMap="pbasketDTO">
+        SELECT  B.PBASKET_KEY,
+                B.USER_KEY,
+                B.CARD_NUMBER,
+                B.BALANCE,
+                B.POINT_KEY,
+                P.NAME POINT_NAME,
+                C.CURRENT_RATE_SON,
+                C.CURRENT_RATE_MOM
+        FROM PBASKET B, PPOINT P, CURRENT_RATE C
+        WHERE B.POINT_KEY = P.POINT_KEY
+        AND B.USER_KEY = #{userKey}
+
+        AND C.FROM_POINT_KEY = #{criteria}
+        AND C.TO_POINT_KEY = B.POINT_KEY
+
+    </select>
+
+
+    <select id="selectBasketByUserPoint" parameterType="pbasketDTO" resultMap="pbasketDTO">
+        SELECT  PBASKET_KEY,
+        USER_KEY,
+        CARD_NUMBER,
+        BALANCE,
+        POINT_KEY
+        FROM PBASKET
+        WHERE USER_KEY = #{userKey}
+        AND POINT_KEY = #{pointKey}
+    </select>
+
+    <update id="updatePbasketByUserPoint" parameterType="pbasketDTO">
+        UPDATE PBASKET
+        SET (BALANCE) = (#{balance})
+        WHERE USER_KEY = #{userKey}
+        AND POINT_KEY = #{pointKey}
+
+    </update>
+
+</mapper>
