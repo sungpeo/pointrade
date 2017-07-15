@@ -3,10 +3,6 @@ function login(){
     console.log('login-div');
 
     (function(){
-        //TEST
-//        $('#inputName').val('최호재');
-//        $('#inputBirth').val('880401');
-//        $('#inputHp').val('01038540584');
         $('#inputAuth').val('1234');
     }())
 

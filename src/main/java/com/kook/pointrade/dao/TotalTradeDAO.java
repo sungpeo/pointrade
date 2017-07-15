@@ -1,14 +1,13 @@
 package com.kook.pointrade.dao;
 
-import com.kook.pointrade.domain.CurrentRateDTO;
-import com.kook.pointrade.domain.TotalTradeDTO;
-import com.kook.pointrade.service.object.Rate;
-import org.apache.ibatis.session.SqlSession;
+import java.util.List;
+
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.util.List;
+import com.kook.pointrade.domain.TotalTradeDTO;
+import com.kook.pointrade.service.object.Rate;
 
 /**
  * Created by Sungpyo on 2016-06-12.
@@ -17,7 +16,7 @@ import java.util.List;
 public class TotalTradeDAO {
 
     @Autowired
-    private SqlSession sqlSession;
+    private SqlSessionTemplate sqlSession;
 
     public List<TotalTradeDTO> selectTradeByPointKey(int fromPointKey, int toPointKey) {
         TotalTradeDTO in = new TotalTradeDTO();

@@ -1,12 +1,12 @@
 package com.kook.pointrade.dao;
 
-import com.kook.pointrade.domain.PbasketDTO;
-import com.kook.pointrade.domain.UserDTO;
-import org.apache.ibatis.session.SqlSession;
+import java.util.List;
+
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import com.kook.pointrade.domain.PbasketDTO;
 
 /**
  * Created by Sungpyo on 2016-06-12.
@@ -15,7 +15,7 @@ import java.util.List;
 public class BasketDAO {
 
     @Autowired
-    private SqlSession sqlSession;
+    private SqlSessionTemplate sqlSession;
 
     public List<PbasketDTO> selectBasketByUserWithCriteria(int userKey, int criteria) {
         PbasketDTO in = new PbasketDTO();
